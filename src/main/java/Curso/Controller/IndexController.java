@@ -1,5 +1,6 @@
 package Curso.Controller;
 
+import Curso.Models.Telefone;
 import Curso.Models.Usuario;
 import Curso.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,24 @@ public class IndexController {
     private UsuarioRepository usuarioRepository;
 
 
-    @GetMapping(value = "/{id}/codigovenda/{venda}", produces = "application/pdf")
-    public ResponseEntity<Usuario> relatorio(@PathVariable(value = "id") Long id){
+//    @GetMapping(value = "/{id}/codigovenda/{venda}", produces = "application/pdf")
+//    public ResponseEntity<Usuario> relatorio(@PathVariable(value = "id") Long id){
+//
+//        Optional<Usuario> usuario = usuarioRepository.findById(id);
+//
+//        return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK);
+//    }
+//
+//    @PostMapping(value = "/vendausuario", produces = "application/json")
+//    public ResponseEntity<Usuario> cadastrarvenda(@RequestBody Usuario usuario){
+//
+//        Usuario usuariosalvo = usuarioRepository.save(usuario);
+//
+//        return new ResponseEntity<Usuario>(usuariosalvo, HttpStatus.OK);
+//    }
 
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
 
-        return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK);
-    }
-
+//    OBTER USUARIO POR ID
     @GetMapping(value = "/{id}", produces = "application/json")
     public ResponseEntity<Usuario> init(@PathVariable(value = "id") Long id){
 
@@ -36,12 +47,14 @@ public class IndexController {
         return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK);
     }
 
+//    OBTER TODOS OS USUARIOS
     @GetMapping(value = "/", produces = "application/json")
     public ResponseEntity <List<Usuario>> usuario(){
         List<Usuario> list = (List<Usuario>) usuarioRepository.findAll();
         return new ResponseEntity<List<Usuario>>(list, HttpStatus.OK);
     }
 
+//    CADASTRAR USUARIO
     @PostMapping(value = "/", produces = "application/json")
     public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario){
         for (int pos = 0; pos < usuario.getTelefones().size(); pos++){
