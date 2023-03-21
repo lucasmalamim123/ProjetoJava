@@ -44,15 +44,27 @@ public class IndexController {
 
     @PostMapping(value = "/", produces = "application/json")
     public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario){
+        for (int pos = 0; pos < usuario.getTelefones().size(); pos++){
+            usuario.getTelefones().get(pos).setUsuario(usuario);
+        }
          Usuario usuariosalvo = usuarioRepository.save(usuario);
          return new ResponseEntity<Usuario>(usuariosalvo, HttpStatus.OK);
     }
-     @PostMapping(value = "/vendausuario", produces = "application/json")
-    public ResponseEntity<Usuario> cadastrarvenda(@RequestBody Usuario usuario){
 
-         Usuario usuariosalvo = usuarioRepository.save(usuario);
-
-         return new ResponseEntity<Usuario>(usuariosalvo, HttpStatus.OK);
+//    ATUALIZAR USUÁRIO
+    @PutMapping(value = "/", produces = "application/json")
+    public ResponseEntity<Usuario> atualizar(@RequestBody Usuario usuario){
+        for (int pos = 0; pos < usuario.getTelefones().size(); pos++){
+            usuario.getTelefones().get(pos).setUsuario(usuario);
+        }
+        Usuario usuarioSalvo = usuarioRepository.save(usuario);
+        return new ResponseEntity<Usuario>(usuarioSalvo, HttpStatus.OK);
     }
 
+//    DELETAR USUARIO
+    @DeleteMapping(value = "/{id}", produces = "application/json")
+    public String deletar(@PathVariable("id") Long id){
+        usuarioRepository.deleteById(id);
+        return "Ok";
+    }
 }
