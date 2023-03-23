@@ -7,15 +7,16 @@
           integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
           crossorigin="anonymous"></script>
 </head>
-<body>
-
+<body style="background: #000000">
+    <p></p>
     <script>
       $(document).ready(
         function(){
         $.ajax({
-            url: "http://localhost:8090/usuario/",
+            url: "http://localhost:8090/projetodolucas/usuario/",
             method:"GET"
         }).then (function(data, status, info){
+            alert(data[0].login);
         });
        }
      );
